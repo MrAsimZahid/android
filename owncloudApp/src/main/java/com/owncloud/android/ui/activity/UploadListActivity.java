@@ -174,19 +174,10 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         }
     }
 
-    /**
-     * Same as openFileWithDefault() but user cannot save default app.
-     *
-     * @param ocFile
-     */
-    private void openFileWithDefaultNoDefault(OCFile ocFile) {
-        getFileOperationsHelper().openFile(ocFile);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
-        UploadsStorageManager storageManager = null;
+        UploadsStorageManager storageManager;
         UploadListFragment uploadListFragment =
                 (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
         switch (item.getItemId()) {
@@ -306,7 +297,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 }
             } else {
                 Timber.d("UploadListActivity not connected to Upload service. component: " + component + " service: " + service);
-                return;
             }
         }
 
@@ -333,10 +323,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
             uploadListFragment.updateUploads();
         }
-    }
-
-    protected String getDefaultTitle() {
-        return getString(R.string.uploads_view_title);
     }
 
     /**
